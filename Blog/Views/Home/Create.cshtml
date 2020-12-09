@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>New Blogs</h2>
+<div class="col-6">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            <label>Tiêu đề</label>
+        </div>
+
+        <div class="form-group">
+            <label>Mô tả ngắn</label>
+        </div>
+
+        <label>Chi tiết</label>
+        <div class="form-group">
+        </div>
+
+        <label>Hình ảnh</label>
+        <div class="form-group">
+        </div>
+
+        <label>Loại</label>
+        <div class="form-group">
+            <select name="Category">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Vị trí</label>
+        </div>
+        <label>Public</label>
+        <div>
+            <input type="radio" id="Yes" name="IsPublished" value="true" checked />
+            <label>Yes</label>
+
+        </div>
+        <div>
+            <input type="radio" id="No" name="IsPublished" value="false" />
+            <label>No</label>
+        </div>
+
+        <label>Date Public</label>
+        <div class="form-group">
+        </div>
+
+
+        <div class="form-group col-6 offset-6">
+            <button type="submit" class="btn btn-success">Submit</button>
+            @Html.ActionLink("Clear", "Create", null, new { @class = "btn btn-primary" })
+        </div>
+
+    }
+</div>
+

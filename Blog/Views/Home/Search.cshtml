@@ -1,0 +1,72 @@
+﻿@model Blog.Models.Blogs
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search Blogs</h2>
+<div class="col-8">
+    <div class="row">
+        <div class="col-12">
+            @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+            {
+                <div class="form-row">
+                    <div class="col-2">
+                        <label>Tiêu đề</label>
+                    </div>
+                    <div class="col-10">
+                        @Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Tiêu đề", required = "required" })
+                    </div>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-success">Search</button>
+            }
+        </div>
+
+    </div>
+    <br />
+    <h2>List Blogs</h2>
+    <div class="table">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tin</th>
+                    <th>Trạng thái</th>
+                    <th>Loại</th>
+                    <th>Vị trí</th>
+                    <th>Ngày public</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.AllBlog != null)
+                {
+                    foreach (var item in Model.AllBlog)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(m => item.Id)</td>
+                            <td>@Html.DisplayFor(m => item.News)</td>
+                            <td>
+                                @if (item.Status)
+                                {<label>Yes</label>}
+                                else
+                                {<label>No</label>}
+                            </td>
+                            <td>@Html.DisplayFor(m => item.Category_ID)</td>
+                            <td>@Html.DisplayFor(m => item.Position_ID)</td>
+                            <td>@Html.DisplayFor(m => item.Date)</td>
+                            <td>
+                                @Html.ActionLink("Edit", "Update", new { id = item.Id })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-danger", @onclick = "return confirm('Are sure wants to delete?');" })
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

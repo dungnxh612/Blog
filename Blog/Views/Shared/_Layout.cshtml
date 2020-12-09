@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        ul li {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar sticky-top flex-md-nowrap bg-white p-0">
+        <div class="col-1 offset-1">
+            <img class="" src="~/logo_02.png" height="50" width="70" style="margin:4px;">
+        </div>
+        <div class="col-9 offset-1">
+            <h1 class="navbar-brand col-sm-3 col-md-2 mr-0" style=" font-size: 2.25rem; ">Blog Managements</h1>
+        </div>
+    </header>
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3">
+                    <div class="container-fluid">
+                        <div class="col-9 offset-3">
+                            <div class="card">
+                                <ul class="navbar-nav">
+                                    <li class="list-group-item nav-item">
+                                        @Html.ActionLink("List", "ListAllBlog", "Home")
+                                    </li>
+                                    <li class="list-group-item nav-item">
+                                        @Html.ActionLink("New", "Create", "Home")
+                                    </li>
+                                    <li class="list-group-item nav-item">
+                                        @Html.ActionLink("Search", "Search", "Home")
+                                    </li>
+                                    <li class="list-group-item nav-item">
+                                        <a href="" class="navbar-link">Edit</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="container-fluid">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
