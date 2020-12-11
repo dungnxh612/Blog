@@ -18,7 +18,10 @@
                     </div>
                 </div>
                 <br />
-                <button type="submit" class="btn btn-success">Search</button>
+                <div style="text-align:center">
+                    <button type="submit" class="btn btn-success">Search</button>
+                </div>
+
             }
         </div>
 
@@ -53,11 +56,27 @@
                                 else
                                 {<label>No</label>}
                             </td>
-                            <td>@Html.DisplayFor(m => item.Category_ID)</td>
-                            <td>@Html.DisplayFor(m => item.Position_ID)</td>
+                            <td>
+                                @foreach (var cate in ViewBag.Category)
+                                {
+                                    if (cate.ID == item.Category_ID)
+                                    {
+                                        <label>@cate.Category_Name</label>
+                                    }
+                                }
+                             </td>
+                            <td>
+                                @foreach (var pos in ViewBag.Position)
+                                {
+                                    if (pos.ID == item.Position_ID)
+                                    {
+                                        <label>@pos.Position_Name</label>
+                                    }
+                                }
+                            </td>
                             <td>@Html.DisplayFor(m => item.Date)</td>
                             <td>
-                                @Html.ActionLink("Edit", "Update", new { id = item.Id })
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
                             </td>
                             <td>
                                 @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-danger", @onclick = "return confirm('Are sure wants to delete?');" })

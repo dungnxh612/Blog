@@ -1,6 +1,7 @@
-﻿
+﻿@model Blog.Models.Blogs
 @{
     ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>New Blogs</h2>
@@ -11,42 +12,73 @@
 
         <div class="form-group">
             <label>Tiêu đề</label>
+            @Html.TextBoxFor(model => model.News, null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.News)
         </div>
 
         <div class="form-group">
             <label>Mô tả ngắn</label>
+            @Html.TextBoxFor(model => model.Description, null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Description)
         </div>
 
         <label>Chi tiết</label>
         <div class="form-group">
+            @Html.TextAreaFor(model => model.Detail, new { @class = "form-control", @style = "height:150px" })
+            @Html.ValidationMessageFor(model => model.Detail)
         </div>
 
         <label>Hình ảnh</label>
         <div class="form-group">
+            @Html.TextBoxFor(model => model.Img, null, new { @type = "file" })
+            @Html.ValidationMessageFor(model => model.Img)
         </div>
 
         <label>Loại</label>
         <div class="form-group">
-            <select name="Category">
+            <select name="Category_ID">
+                @foreach (var item in ViewBag.Category)
+                {
+                    <option name="Category_ID" value="@item.ID">@item.Category_Name</option>
+                }
             </select>
         </div>
 
         <div class="form-group">
             <label>Vị trí</label>
+            @foreach (var item in ViewBag.Position)
+            {
+                if (item.ID == 1)
+                {
+                    <div>
+                        <input type="checkbox" name="Position" value="@item.Position_Name" checked />
+                        <label>@item.Position_Name</label>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <input type="checkbox" name="Position" value="@item.Position_Name" />
+                        <label>@item.Position_Name</label>
+                    </div>
+                }
+            }
         </div>
         <label>Public</label>
         <div>
-            <input type="radio" id="Yes" name="IsPublished" value="true" checked />
+            <input type="radio" id="Yes" name="Status" value="true" checked />
             <label>Yes</label>
 
         </div>
         <div>
-            <input type="radio" id="No" name="IsPublished" value="false" />
+            <input type="radio" id="No" name="Status" value="false" />
             <label>No</label>
         </div>
 
         <label>Date Public</label>
         <div class="form-group">
+            @Html.TextBoxFor(model => model.Date, null, new { @type = "date", @Value = System.DateTime.Now.ToString("yyyy-MM-dd") })
+            @Html.ValidationMessageFor(model => model.Date)
         </div>
 
 
@@ -57,4 +89,3 @@
 
     }
 </div>
-

@@ -15,6 +15,8 @@ namespace Blog.Controllers
         {
             Blogs blg = new Blogs();
             DataAccessLayer obj = new DataAccessLayer();
+            ViewBag.Category = obj.SelectCategory();
+            ViewBag.Position = obj.SelectPosition();
             blg.AllBlog = obj.SelectAllData();
             return View(blg);
         }
@@ -24,6 +26,8 @@ namespace Blog.Controllers
         {
             Blogs blg = new Blogs();
             DataAccessLayer obj = new DataAccessLayer();
+            ViewBag.Category = obj.SelectCategory();
+            ViewBag.Position = obj.SelectPosition();
             if (String.IsNullOrEmpty(SearchString))
             {
                 blg.AllBlog = obj.SelectAllData();
@@ -46,16 +50,51 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Blogs blg)
+        public ActionResult Create(Blg blg)
         {
             DataAccessLayer obj = new DataAccessLayer();
-            string result = obj.InsertData(blg);
-            if(result != "")
+            ViewBag.Category = obj.SelectCategory();
+            ViewBag.Position = obj.SelectPosition();
+            if (ModelState.IsValid)
             {
+                string result = obj.InsertData(blg);
+                return RedirectToAction("ListAllBlog");
+            }
+            return View(blg);
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int ID)
+        {
+            DataAccessLayer objDB = new DataAccessLayer();
+            objDB.DeleteData(ID);
+
+            return RedirectToAction("ListAllBlog");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int ID)
+        {
+            Blogs bl= new Blogs();
+            DataAccessLayer obj = new DataAccessLayer();
+            ViewBag.Category = obj.SelectCategory();
+            ViewBag.Position = obj.SelectPosition();
+            bl= obj.SelectDataById(ID);
+            return View(bl);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Blg bl)
+        {
+            DataAccessLayer obj = new DataAccessLayer();
+            ViewBag.Category = obj.SelectCategory();
+            ViewBag.Position = obj.SelectPosition();
+            if (ModelState.IsValid)
+            {
+                obj.UpdateData(bl);
                 return RedirectToAction("ListAllBlog");
             }
             return View();
         }
-
     }
 }

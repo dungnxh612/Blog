@@ -1,0 +1,123 @@
+﻿@model Blog.Models.Blogs
+@{
+    ViewBag.Title = "EditBlog";
+}
+
+<h2>Edit Blogs</h2>
+<div class="col-6">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            <label>Tiêu đề</label>
+            @Html.TextBoxFor(model => model.News, null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.News)
+        </div>
+
+        <div class="form-group">
+            <label>Mô tả ngắn</label>
+            @Html.TextBoxFor(model => model.Description, null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <label>Chi tiết</label>
+        <div class="form-group">
+            @Html.TextAreaFor(model => model.Detail, new { @class = "form-control", @style = "height:150px" })
+            @Html.ValidationMessageFor(model => model.Detail)
+        </div>
+
+        <label>Hình ảnh</label>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Img, null, new { @type = "file" })
+            @Html.ValidationMessageFor(model => model.Img)
+        </div>
+
+        <label>Loại</label>
+        <div class="form-group">
+            <select name="Category_ID">
+                @foreach (var item in ViewBag.Category)
+                {
+                    if (item.ID == Model.Category_ID)
+                    {
+                        <option name="Category_ID" value="@item.ID" selected>@item.Category_Name</option>
+                    }
+                    else
+                    {
+                        <option name="Category_ID" value="@item.ID">@item.Category_Name</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Vị trí</label>
+            @{ if (ViewBag.Position == null)
+                {
+                    foreach (var pos in ViewBag.Position)
+                    {
+                        <div>
+                            <input type="checkbox" name="Position" value="@pos.Position_Name" />
+                            <label>@pos.Position_Name</label>
+                        </div>
+                    }
+                }
+            }
+            @foreach (var item in ViewBag.Position)
+            {
+                    if (item.ID == Model.Position_ID)
+                    {
+                        <div>
+                            <input type="checkbox" name="Position" value="@item.Position_Name" checked />
+                            <label>@item.Position_Name</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                        <input type="checkbox" name="Position" value="@item.Position_Name" />
+                        <label>@item.Position_Name</label>
+                    </div>
+                    }
+
+            }
+        </div>
+        <label>Public</label>
+        if (Model.Status == true)
+        {
+            <div>
+                <input type="radio" id="Yes" name="Status" value="true" checked />
+                <label>Yes</label>
+
+            </div>
+            <div>
+                <input type="radio" id="No" name="Status" value="false" />
+                <label>No</label>
+            </div>
+        }
+        else
+        {
+            <div>
+                <input type="radio" id="Yes" name="Status" value="true" />
+                <label>Yes</label>
+
+            </div>
+            <div>
+                <input type="radio" id="No" name="Status" value="false" checked />
+                <label>No</label>
+            </div>
+        }
+        <label>Date Public</label>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Date, null, new { @type = "date", @Value = Model.Date.ToString("yyyy-MM-dd") })
+            @Html.ValidationMessageFor(model => model.Date)
+        </div>
+
+        <div class="form-group col-6 offset-6">
+            <button type="submit" class="btn btn-success">Submit</button>
+            @Html.ActionLink("Clear", "EditBlog", new { id = Model.Id }, new { @class = "btn btn-primary" })
+        </div>
+
+    }
+</div>
+
